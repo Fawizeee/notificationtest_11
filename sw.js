@@ -62,7 +62,7 @@ self.addEventListener('push', function(event) {
         title: 'Close'
       }
     ],
-    data: payload.data || { url: 'http://localhost:8082' }
+    data: payload.data || { url: 'https://notificationtest-11.vercel.app' }
   };
 
   console.log('🎯 Service Worker: Showing notification with:', { title, options });
@@ -95,7 +95,7 @@ self.addEventListener('notificationclick', function(event) {
   if (event.action === 'open') {
     console.log('👉 Service Worker: Open action clicked');
     event.waitUntil(
-      clients.openWindow('http://localhost:8082')
+      clients.openWindow('https://notificationtest-11.vercel.app')
     );
   } else if (event.action === 'close') {
     console.log('❌ Service Worker: Close action clicked');
@@ -104,14 +104,14 @@ self.addEventListener('notificationclick', function(event) {
     event.waitUntil(
       clients.matchAll({type: 'window'}).then(windowClients => {
         for (let client of windowClients) {
-          if (client.url.includes('localhost:8082') && 'focus' in client) {
+          if (client.url.includes('https:') && 'focus' in client) {
             console.log('🔍 Service Worker: Focusing existing window');
             return client.focus();
           }
         }
         if (clients.openWindow) {
           console.log('🆕 Service Worker: Opening new window');
-          return clients.openWindow('http://localhost:8082');
+          return clients.openWindow('https://notificationtest-11.vercel.app');
         }
       })
     );
