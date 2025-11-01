@@ -104,7 +104,7 @@ document.getElementById("subscribeBtn").addEventListener("click", async () => {
   if (!subscription) {
     const newSub = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array('<Your-VAPID-Public-Key>')
+      applicationServerKey: appServerKey
     });
     console.log('New subscription:', newSub);
   } else {
